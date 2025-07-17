@@ -1,3 +1,5 @@
+Copyright (c) 2025 Yohei Kikuta
+
 Attribution-NonCommercial-ShareAlike 4.0 International
 
 =======================================================================
@@ -436,4 +438,3 @@ public licenses.
 
 Creative Commons may be contacted at creativecommons.org.
 
-Copyright (c) 2025 Yohei Kikuta
