@@ -102,3 +102,70 @@ unleveled は前処理なしで、leveled は原形にするなどの前処理�
 コードでは出現頻度が大きい順にトークンのペアを表示してどのようにトークンがマージされるかを理解させようとしつつ、この `vocab` によって同時にある文字列が与えられたときにそれがどのようにトークナイズされるかも理解してもらおうとしていると思われる。
 
 ただし、BPE の実装は典型的には出現頻度の大きいトークンペアを辞書として保持してそれを使って入力文をトークナイズすることが多いので、コードにおける `vocab` の意味は少し分かりづらく、本書で書いたように理解促進のために効果的なものにはなっていない。
+
+---
+
+### 演習問題2.8
+`learn_bpe.py` のコード全体はこちら https://github.com/rsennrich/subword-nmt/blob/92d6139d07d30e12735a0af9e7f7f925ebe62c54/subword_nmt/learn_bpe.py
+
+ポイントになるのは `prune_stats` https://github.com/rsennrich/subword-nmt/blob/92d6139d07d30e12735a0af9e7f7f925ebe62c54/subword_nmt/learn_bpe.py#L271-L284 で以下のコードであり、これは高速化のために `stats` という出現頻度のペアを保持する辞書から `threshold` 未満のペアを削除するものになっている（ `big_stats` には全ての出現頻度の情報が保持されている ）。
+
+```python
+def prune_stats(stats, big_stats, threshold):
+    """Prune statistics dict for efficiency of max()
+
+    The frequency of a symbol pair never increases, so pruning is generally safe
+    (until we the most frequent pair is less frequent than a pair we previously pruned)
+    big_stats keeps full statistics for when we need to access pruned items
+    """
+    for item,freq in list(stats.items()):
+        if freq < threshold:
+            del stats[item]
+            if freq < 0:
+                big_stats[item] += freq
+            else:
+                big_stats[item] = freq
+```
+
+あとは `learn_bpe` https://github.com/rsennrich/subword-nmt/blob/92d6139d07d30e12735a0af9e7f7f925ebe62c54/subword_nmt/learn_bpe.py#L298-L360 の処理を追う。
+以下の部分において、初期の `threshold` が最大出現頻度の 1/10 であり、`i = 0` のループ処理の最後における `prune_stats` によって多くのペアが枝刈りされるので、早い段階で `stats` に含まれる最大出現頻度のペアは `threshold` を下回ることになる（最大出現頻度のペアはファイルに書き出されて `stats` から取り除かれていくことに注意）。
+そのため枝刈りしたペアを再度考慮して `threshold` も更新して処理を続けるという流れになっている。
+
+```python
+    # threshold is inspired by Zipfian assumption, but should only affect speed
+    threshold = max(stats.values()) / 10
+    for i in tqdm(range(num_symbols)):
+        if stats:
+            most_frequent = max(stats, key=lambda x: (stats[x], x))
+
+        # we probably missed the best pair because of pruning; go back to full statistics
+        if not stats or (i and stats[most_frequent] < threshold):
+            prune_stats(stats, big_stats, threshold)
+            stats = copy.deepcopy(big_stats)
+            most_frequent = max(stats, key=lambda x: (stats[x], x))
+            # threshold is inspired by Zipfian assumption, but should only affect speed
+            threshold = stats[most_frequent] * i/(i+10000.0)
+            prune_stats(stats, big_stats, threshold)
+        ...（途中省略）...
+        if is_bytes:
+            outfile.write(most_frequent[0] + b' ' + most_frequent[1] + b'\n')
+        else:
+            outfile.write('{0} {1}\n'.format(*most_frequent))
+        changes = replace_pair(most_frequent, sorted_vocab, indices, is_bytes)
+        update_pair_statistics(most_frequent, changes, stats, indices)
+        stats[most_frequent] = 0
+        if not i % 100:
+            prune_stats(stats, big_stats, threshold)
+```
+
+簡単のため `i` が小さいところだけを追ってみたが、全体的な処理はより複雑な条件の絡み合いが生じるので、興味があればより深くコードを読んでみるといいだろう。
+様々なヒューリスティックな値が使われているのも眺めているとおもしろいところである。
+
+---
+
+### 演習問題2.9
+colab で実装した簡単な例: https://colab.research.google.com/drive/1wom259xtR1ZPnD-ACYqegL98J5euagGm?usp=sharing
+
+これは本書のリスト 2.5 を使ったものだが、元の実装の全体は https://github.com/rsennrich/subword-nmt/blob/92d6139d07d30e12735a0af9e7f7f925ebe62c54/subword_nmt/apply_bpe.py#L276-L342 である。
+
+---
