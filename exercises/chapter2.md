@@ -289,3 +289,48 @@ BPE において語彙を構築するために使うテキストの長さを $`N
 人間による文字の使い方としては 1 文字で扱われるものであるが、バイト単位でのトークン化によって複数トークンに分割されている。
 
 ---
+
+### 演習問題2.17
+本書における式変形で特に、$`\log P (\boldsymbol{s})`$ を足し引きして式を整理、の部分が少し混み入った計算をしているので、その部分を明らかにしよう。
+計算の出発地点として、以下が与えられている状況である。
+
+```math
+L_m(Q \circ \mathrm{enc}(\cdot)) = \mathbb{E}_{P(\boldsymbol{s})} \left[ \sum_{\boldsymbol{t} \in \mathrm{enc} (\boldsymbol{s})} \log \left( \frac{1}{Q_{\mathrm{tok} (\boldsymbol{t})}} \right) \right] \quad\text{where}\quad Q_{\mathrm{tok}}(\boldsymbol{t}_{i}) = \pi \bigl( s_{r(i-1)+1} \bigr) \prod_{\ell=1}^{r-1} P \bigl( s_{r(i-1)+\ell+1} \mid s_{r(i-1)+\ell} \bigr)
+```
+
+$`Q_{\mathrm{tok}}(\boldsymbol{t}_{i})`$ を代入して展開していく。
+本書の図 2.7 も踏まえつつ、トークンによる表式を文字の表式で読み替えよう。
+$`\sum_{\boldsymbol{t} \in \mathrm{enc} (\boldsymbol{s})}`$ は $`1`$ から $`\frac{m}{r}`$ の添え字で表現すれば $`\sum_{i = 1}^{\frac{m}{r}}`$ であるので、以下が得られる。
+
+```math
+L_m(Q \circ \mathrm{enc}(\cdot)) = \mathbb{E}_{P(\boldsymbol{s})} \left[ - \sum_{i=1}^{m/r} \log \pi (s_{r(i-1) + 1}) - \sum_{i=1}^{m/r} \sum_{\ell=1}^{r-1} \log P ( s_{r(i-1)+\ell+1} \mid s_{r(i-1)+\ell} ) \right]
+```
+
+この期待値の中身を $`A`$ と置くと、$`A + \log P(\boldsymbol{s}) - \log P(\boldsymbol{s})`$ として、$` P(\boldsymbol{s}) = \left( \prod_{i=1}^{m-1} P(s_{i+1} \mid s_{i}) \right) \pi (s_1) `$ なる定常Markov過程を用いると、以下のように整理できる。
+
+
+```math
+\begin{align}
+A + \log P(\boldsymbol{s}) &=& - \sum_{i=1}^{m/r} \log \pi (s_{r(i-1) + 1}) + \log \pi (s_1) - \sum_{i=1}^{m/r} \sum_{\ell=1}^{r-1} \log P ( s_{r(i-1)+\ell+1} \mid s_{r(i-1)+\ell} ) + \sum_{i=1}^{m-1} \log P(s_{i+1} \mid s_{i}) \\
+&=& - \sum_{i=2}^{m/r} \log \pi (s_{r(i-1) + 1}) + \left( - \log P (s_2 \mid s_1) \cdots - \log P (s_{r} \mid s_{r-1}) + \log P (s_2 \mid s_1) \cdots + \log P (s_{r} \mid s_{r-1}) \right) + \log P (s_{r+1} \mid s_{r}) + \cdots
+\end{align}
+```
+
+ここで、2 行目の括弧内はマイナスの項が $`\sum_{i=1}^{m/r} \sum_{\ell=1}^{r-1} \log P ( s_{r(i-1)+\ell+1} \mid s_{r(i-1)+\ell} )`$ の $`i=1`$ における $`\ell`$ の和の寄与で、プラスの項が $`\sum_{i=1}^{m-1} \log P(s_{i+1} \mid s_{i})`$ の $`i=1`$ から $`i=r-1`$ までの寄与であり、これらが相殺される。
+相殺されない項として、$`\sum_{i=1}^{m-1} \log P(s_{i+1} \mid s_{i})`$ の $`i=r`$ の項が残る。
+相殺されるものを全て相殺し、特に最後の $`\log P (s_{m} \mid s_{m-1})`$ が相殺されることに注意すると、以下のようにまとめられる。
+
+```math
+\begin{align}
+A + \log P(\boldsymbol{s}) &=& - \sum_{i=2}^{m/r} \log \pi (s_{r(i-1) + 1}) + \sum_{i=1}^{m/r - 1} \log P (s_{ri + 1} \mid s_{ri}) \\
+&=& - \sum_{i=1}^{m/r - 1} \left( \log \pi (s_{ri + 1}) - \log P (s_{ri + 1} \mid s_{ri}) \right)
+\end{align}
+```
+
+以上により、$`\log P (\boldsymbol{s})`$ を足し引きをして整理すると、本書で書かれている以下の形にまとめられることが示された。
+
+```math
+\begin{align}
+L_m(Q \circ \mathrm{enc}(\cdot)) = \mathbb{E}_{P(\boldsymbol{s})} \left[ - \sum_{i=1}^{m/r - 1} \left( \log \pi (s_{ri + 1}) - \log P (s_{ri + 1} \mid s_{ri}) \right) - \log P(\boldsymbol{s}) \right]
+\end{align}
+```
