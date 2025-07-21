@@ -169,3 +169,84 @@ colab で実装した簡単な例: https://colab.research.google.com/drive/1wom2
 これは本書のリスト 2.5 を使ったものだが、元の実装の全体は https://github.com/rsennrich/subword-nmt/blob/92d6139d07d30e12735a0af9e7f7f925ebe62c54/subword_nmt/apply_bpe.py#L276-L342 である。
 
 ---
+
+### 演習問題2.10
+人為的な例として、各トークンの出現確率が `{情報: 0.3, 通信: 0.2, 情報通: 0.4, 信: 0.1}` である場合に、 `情報通信` をサブワード分割する場合を考える。
+
+最長一致の貪欲法であれば、`情報通` が選ばれ、次は残りの `信` が選ばれ、この場合の確率の積を評価してみると $`0.4 \times 0.1 = 0.04`$ である。
+一方でビーム幅が 2 であるビームサーチを用いれば、確率の積がより高くなる `情報` と `通信` が選ばれ、この場合の確率の積は $`0.3 \times 0.2 = 0.06`$ である。
+
+（そうなるように人為的に作った例ではあるが）この場合、`情報/通信` と区切る方が意味として分かりやすく、確率の積としても高い値を持つので、ビームサーチの方が良いサブワード分割を導くと考えられる。
+
+---
+
+### 演習問題2.11
+BPE において語彙を構築するために使うテキストの長さを $`N`$ として、構築する語彙サイズを $`M`$ とする。
+
+まずはナイーブな実装を考えよう。
+ナイーブな実装とは、テキスト全体を走査して隣接ペアの頻度をカウントし、カウントした情報全体を走査して最頻出ペアを同定し、改めてテキスト全体を走査して最頻出ペアのマージ（置換）を実施し、これを構築する語彙サイズの数だけ愚直に繰り返すというものである。
+一回のマージにおける主要な計算量は $`\mathcal{O} (N)`$ であり（最頻出ペアの導出はユニークなペアの数に対して線形時間になるが、これは $`\mathcal{O} (N)`$ 以下）、それを $`M`$ 回繰り返すので、計算量は $`\mathcal{O} (MN)`$ となる。
+語彙サイズはハイパーパラメーターであるが、最悪の場合 $`\mathcal{O} (N)`$ であるので、最悪の場合の計算量は $`\mathcal{O} (N^2)`$ となる。
+トークナイザーの学習データとして、例えば 100 [GB] 程度使う場合、この計算量では学習が困難である。
+そのため、ナイーブな実装を用いる場合、英語のようにテキストを分かち書きができる言語を対象にして、単語単位で BPE を適用する必要がある。
+
+一方で、SentencePiece では実装が効率化されているため、計算量は $`\mathcal{O} (N \log N)`$ となる。
+様々な場面で最適化がなされているので正確な計算量はより複雑だが、計算量の比較の観点で重要な点のみに絞り、BPE の学習コード https://github.com/google/sentencepiece/blob/d8f7418/src/bpe_model_trainer.cc を確認してみよう。
+
+ポイントは頻度情報の更新で、ナイーブな実装では毎回カウントし直していたが、これは全てカウントする必要はなく関連する局所的な部分だけを更新すればいい。
+メインループの処理 https://github.com/google/sentencepiece/blob/d8f7418/src/bpe_model_trainer.cc#L226C3-L309C25 を読んでみよう。
+最初に隣接ペアの情報を取得する部分 https://github.com/google/sentencepiece/blob/d8f7418/src/bpe_model_trainer.cc#L210-L215 は $`\mathcal{O} (N)`$ で実施され、`sid` で特徴付けられる文単位で（入力データは文単位に区切られている）、各文でトークンの出現位置を `symbols_` に記録する。
+この位置情報を用いて隣接ペアの頻度をカウントしたりマージを実施したり頻度情報を局所的に更新していくことになり、具体的には以下のような処理をしている。
+
+- 100 イテレーション毎に `UpdateActiveSymbols()` を呼び出し、出現頻度の高いペアに絞って扱うようにする。
+  - 実装は https://github.com/google/sentencepiece/blob/d8f7418/src/bpe_model_trainer.cc#L137-L164
+  - 頻度のカウントと、部分ソートによる高頻度出現ペアの選出が主たる処理で、典型的には後者の計算量が支配的になる（キャッシュなども絡んでいるので正確には複雑なところもあるが）。部分ソートでは、`symbols_` のサイズ（ $`\mathcal{O} (N)`$ まで大きくなり得る）と上位 $`k`$ 件を抽出するので $`\mathcal{O} (N) \log k`$ という計算量となる。
+  - $`k`$ も最悪な場合 $`\mathcal{O} (N)`$ まで大きくなり得るので、最悪な場合の計算量は $`\mathcal{O} (N) \log N`$ となる（特に初回の計算は重い）。
+- 最頻出ペア `best_symbol` を同定する。
+  - 出現頻度の高いペアの中で頻度をカウントして最大のものを探す。多くの場合で頻度計算の結果を保持している（マージ処理した後は頻度再計算が必要だが、上述の通り 100 回ごとに `UpdateActiveSymbols()` が呼ばれるので、ここで頻度計算が発生する場合は高々 100 回程度）ので、計算量は $`\mathcal{O}(k)`$ で、これは最悪 $`\mathcal{O}(N)`$ である。
+- 最頻出ペアで置換して、置換後に頻度カウントを局所的に更新する。
+  - 置換は `best_symbol` の出現位置の数だけ発生するので無視できるレベルで、最悪 $`\mathcal{O}(N)`$ となる。
+  - 頻度カウントの更新が重要な点で、トークンの出現位置を保持しているので、古いトークンの情報を破棄してマージした新しいトークンの情報に置き換えている。これも同様に無視できるレベルで、最悪な場合は $`\mathcal{O}(N)`$ となる。
+  - 最悪な場合は $`\mathcal{O}(N)`$ であるが、これは例えば `ababab....` と続くようなパターンであり、この場合はマージ処理の度にテキスト長が指数的に減少するので、この部分の処理は問題にはならない。
+
+以上により、計算量は最悪の場合 $`\mathcal{O} (N \log N)`$ になる。
+
+---
+
+### 演習問題2.12
+演習問題 2.11 の解答における頻度カウントの局所的な更新部分を詳しく見ればよい。
+具体的には、以下のように `best_symbol` の登場位置ごとに、その左と右の位置を取得し、古い頻度カウント情報をリセットし、マージ処理をして新しいペアを作っている。
+最頻出ペアが `AB` で `aABb` という並びの場合、`aA` と `Bb` の頻度情報を破棄して、新しく `aAB` と `ABb` をペアとして扱っていくことになる。
+
+```c++
+    for (const uint64 &encoded_pos : best_symbol->positions) {
+      const Position pos = DecodePos(encoded_pos);
+
+      if (symbols_[pos.sid][pos.left] == nullptr) {
+        // left index might be NULL (set in the previous iteration)
+        // when left_symbol == right_symbol.
+        continue;
+      }
+      CHECK_OR_RETURN(symbols_[pos.sid][pos.right]);
+
+      // We have three bigrams [prev, left], [left, right], [right, next],
+      // which are affected with this symbol replacement.
+      const int next = GetNextIndex(pos.sid, pos.right);
+      const int prev = GetPrevIndex(pos.sid, pos.left);
+
+      // Resets the frequencies of bigrams [prev, left] and [right, next].
+      ResetFreq(pos.sid, prev, pos.left, best_symbol);
+      ResetFreq(pos.sid, pos.right, next, best_symbol);
+
+      // Merges two symbols.
+      symbols_[pos.sid][pos.left] = best_symbol;
+      symbols_[pos.sid][pos.right] = nullptr;
+
+      // Makes new symbol bigrams [prev, left] and [left, next].
+      AddNewPair(pos.sid, prev, pos.left);
+      AddNewPair(pos.sid, pos.left, next);
+    }
+```
+
+局所的な処理で新しいペアの位置情報が得られており、頻度をカウントする場合はこの位置情報を使ってカウントすればいいので、テキスト全体を走査する必要はない。
+
