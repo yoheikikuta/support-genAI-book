@@ -250,3 +250,42 @@ BPE において語彙を構築するために使うテキストの長さを $`N
 
 局所的な処理で新しいペアの位置情報が得られており、頻度をカウントする場合はこの位置情報を使ってカウントすればいいので、テキスト全体を走査する必要はない。
 
+---
+
+### 演習問題2.13
+本書内でも紹介したように、これは ill-defined な問題である。
+典型的には `Hello world.` の可能性が一番高いとは考えられるが、空白の情報が失われているため、各トークンの間にスペースを含めるか含めないかの任意性がある。
+
+
+---
+
+### 演習問題2.14
+典型的には、対象のトークンの前にスペースを含む場合と含まない場合で使われ方や意味が異なることは稀であるので、埋め込み特徴量は類似したものになりやすい。
+一方で、それ自体が単語としても使われるし、別の単語の一部にもなるようなトークンの場合、トークンの使われ方や意味は異なるので埋め込み特徴量も異なるものになることもある（例えば `us` など）。
+
+事前学習モデルを用いて実験した結果: https://colab.research.google.com/drive/1XKh0PINgQm2Evb9ACCfqTx36lJXqsH3I?usp=sharing
+
+---
+
+### 演習問題2.15
+原論文 https://cdn.openai.com/better-language-models/language_models_are_unsupervised_multitask_learners.pdf においては以下のように記述されている。
+
+> We add an exception for spaces which significantly improves the compression efficiency while adding only minimal fragmentation of words across multiple vocab tokens.
+
+スペースを Punctuation のような記号とは異なり文字として扱うことで、原理的には `hot dog` のようにスペースで区切られるが高頻度で使われる単語のペアなども 1 つのトークンとして扱うことが可能となり、これにより圧縮効率を高めることができる。
+例えば SentencePiece では `--split_by_whitespace` というオプションでスペースも含めてトークンを作る場合とスペースで区切ってトークンを作る場合を選ぶことができ、その実験結果も公開している: https://github.com/google/sentencepiece/blob/d8f7418/doc/experiments.md
+
+このような性質は認知されていたが、典型的にはスペースで区切ってトークンを構築し、スペースを跨いで文字をマージしてトークンを作るトークナイザーはそれほど作られてこなかった。
+最近では SuperBPE: Space Travel for Language Models https://arxiv.org/abs/2503.13423v2 のように再注目されているため、スペースを跨いでトークンを作るトークナイザーが増えていくかもしれない。
+
+---
+
+### 演習問題2.16
+20250721 時点で https://tiktokenizer.vercel.app/ を試すと、例えば以下のような例を見つけることができる。
+
+- ⊥（U+22A5）: これは垂直記号であるが、tiktoken によるトークン化では 2 トークン（159042, 98）に分割される。
+- ㄱ（U+3131）: これは韓国語の子音字母であるが、tiktoken によるトークン化では 2 トークン（64658, 109）に分割される。
+
+人間による文字の使い方としては 1 文字で扱われるものであるが、バイト単位でのトークン化によって複数トークンに分割されている。
+
+---
