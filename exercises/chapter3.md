@@ -38,6 +38,8 @@ $`\boldsymbol{\mathrm{PE}}_{p+k}`$ が $`\boldsymbol{\mathrm{PE}}_{p}`$ と $`\b
 ### 演習問題3.2
 colab で実装した例: https://colab.research.google.com/drive/1bMMEM0lPgqfxFeOGvZI-uYrb0u-BcDIw?usp=sharing
 
+![](/figure/exercise-3-2.png)
+
 ---
 
 ### 演習問題3.3
