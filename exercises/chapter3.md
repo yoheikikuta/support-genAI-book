@@ -44,3 +44,70 @@ colab で実装した例: https://colab.research.google.com/drive/1bMMEM0lPgqfxF
 
 ### 演習問題3.3
 colab で実装した例: https://colab.research.google.com/drive/1ECLiKlBOo7kEsoSFddG0tWfRkrpJ5ZB6?usp=sharing
+
+---
+
+### 演習問題3.4
+本書の定義に沿って計算を進めていく。まず、 $`Q K^{\mathsf{T}}`$ は以下の $`n`$ 行 $`n`$ 列の行列である。
+
+```math
+\begin{align}
+Q K^{\mathsf{T}} = 
+\begin{pmatrix}
+   \boldsymbol{h}^{\mathrm{query} \mathsf{T}}_1  \\
+   \vdots  \\
+   \boldsymbol{h}^{\mathrm{query} \mathsf{T}}_n
+\end{pmatrix}
+\begin{pmatrix}
+   \boldsymbol{h}^{\mathrm{key}}_1 & \cdots & \boldsymbol{h}^{\mathrm{key}}_n
+\end{pmatrix}
+=
+\begin{pmatrix}
+   \boldsymbol{h}^{\mathrm{query}}_1 \cdot \boldsymbol{h}^{\mathrm{key}}_1 & \cdots & \boldsymbol{h}^{\mathrm{query}}_1 \cdot \boldsymbol{h}^{\mathrm{key}}_n \\
+   \vdots & \vdots & \vdots \\
+   \boldsymbol{h}^{\mathrm{query}}_n \cdot \boldsymbol{h}^{\mathrm{key}}_1 & \cdots & \boldsymbol{h}^{\mathrm{query}}_n \cdot \boldsymbol{h}^{\mathrm{key}}_n
+\end{pmatrix}
+\end{align}
+```
+
+次に、$`\mathrm{softmax}`$ が行方向に適用されることに注意すると、以下が得られる。
+
+```math
+\begin{align}
+\mathrm{softmax} (Q K^{\mathsf{T}})
+=
+\begin{pmatrix}
+   \frac{ \exp(\boldsymbol{h}^{\mathrm{query}}_1 \cdot \boldsymbol{h}^{\mathrm{key}}_1) }{ \sum_j^n \exp(\boldsymbol{h}^{\mathrm{query}}_1 \cdot \boldsymbol{h}^{\mathrm{key}}_j) } & \cdots & \frac{ \exp(\boldsymbol{h}^{\mathrm{query}}_1 \cdot \boldsymbol{h}^{\mathrm{key}}_n) }{ \sum_j^n \exp(\boldsymbol{h}^{\mathrm{query}}_1 \cdot \boldsymbol{h}^{\mathrm{key}}_j) } \\
+   \vdots & \vdots & \vdots \\
+   \frac{ \exp(\boldsymbol{h}^{\mathrm{query}}_n \cdot \boldsymbol{h}^{\mathrm{key}}_1) }{ \sum_j^n \exp(\boldsymbol{h}^{\mathrm{query}}_n \cdot \boldsymbol{h}^{\mathrm{key}}_j) } & \cdots & \frac{ \exp(\boldsymbol{h}^{\mathrm{query}}_n \cdot \boldsymbol{h}^{\mathrm{key}}_n) }{ \sum_j^n \exp(\boldsymbol{h}^{\mathrm{query}}_n \cdot \boldsymbol{h}^{\mathrm{key}}_j) }
+\end{pmatrix}
+\end{align}
+```
+
+これに $`V`$ を右から掛ければ、以下の $`n`$ 行 $`d_{\mathrm{value}}`$ 列の行列が得られる。
+
+```math
+\begin{align}
+\mathrm{softmax} (Q K^{\mathsf{T}}) V
+=
+\begin{pmatrix}
+   \sum_t^n \frac{ \exp(\boldsymbol{h}^{\mathrm{query}}_1 \cdot \boldsymbol{h}^{\mathrm{key}}_t) }{ \sum_j^n \exp(\boldsymbol{h}^{\mathrm{query}}_1 \cdot \boldsymbol{h}^{\mathrm{key}}_j) } \boldsymbol{h}^{\mathrm{value}}_t \\
+   \vdots  \\
+   \sum_t^n \frac{ \exp(\boldsymbol{h}^{\mathrm{query}}_n \cdot \boldsymbol{h}^{\mathrm{key}}_t) }{ \sum_j^n \exp(\boldsymbol{h}^{\mathrm{query}}_n \cdot \boldsymbol{h}^{\mathrm{key}}_j) } \boldsymbol{h}^{\mathrm{value}}_t
+\end{pmatrix}
+\end{align}
+```
+
+ここで、 $`k`$ 行目を抜き出して、$`a_{k,t} = \frac{ \exp(\boldsymbol{h}^{\mathrm{query}}_k \cdot \boldsymbol{h}^{\mathrm{key}}_t) }{ \sum_j^n \exp(\boldsymbol{h}^{\mathrm{query}}_k \cdot \boldsymbol{h}^{\mathrm{key}}_j) }`$ とすれば、以下が得られるので、各行（トークンの位置）ごとにクエリーとキーのスコアで重み付けしたバリューを計算しており、確かに注意機構で実現したい計算になっていることが分かる。
+
+```math
+\begin{align}
+\mathrm{softmax} (Q K^{\mathsf{T}}) V
+=
+\begin{pmatrix}
+   \sum_t^n a_{1,t} \boldsymbol{h}^{\mathrm{value}}_t \\
+   \vdots  \\
+   \sum_t^n a_{n,t} \boldsymbol{h}^{\mathrm{value}}_t 
+\end{pmatrix}
+\end{align}
+```
