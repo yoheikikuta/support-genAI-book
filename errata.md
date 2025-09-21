@@ -6,6 +6,7 @@
 | --- | --- | --- | --- | --- |
 | 36 | I love reproducibility | I Love Reproducibility（これに合わせて表 2.3 の love と reproducibility の頭文字の l,r は全て大文字になります） | N/A | 筆者が手元で試しているトークナイザーでは頭文字を大文字にしないとサブワードの例が再現されないためです。 |
 | 36 | b'\x49', b'\x20', b'\x6c', ... | b'\x49', b'\x20', b'\x4c', ... | N/A | 1 つ上の修正に合わせた修正になります。 |
+| 36 | I, ␣love, ␣reproduc, ibility | I, ␣Love, ␣Reprodu, cibility | N/A | 筆者が手元で試しているトークナイザーの分割はこの結果を返します。 |
 | 165 | 例えば https://www.youtube.com/watch?v=cHRdyed4-yc 参照するとよい。 | 例えば https://www.youtube.com/watch?v=cHRdyed4-yc を参照するとよい。 | N/A | 脚注の 42) です。 |
 | 170 | $`\mathcal{N}\!\Bigl(x;\,\mu_{\theta,i} \bigl(x_1,1\bigr),\,\sigma_1^{2}\Bigr)\,dx`$ | $`\mathcal{N}\!\Bigl(x;\,\mu_{\theta,i} \bigl(\boldsymbol{x}_1,1\bigr),\,\sigma_1^{2}\Bigr)\,dx`$ | 第2刷 | GitHub の表示の問題でうまく表示できないですが、正しくは $`\boldsymbol{x}_1`$ は太字です。 |
 | 179 | $`\theta_{\text{EMA}} = \alpha \times \theta_{\text{EMA}} + (1 - \alpha) \times \theta_{\text{current}}`$ | $`\theta_{\text{EMA}} = \alpha \theta_{\text{EMA}} + (1 - \alpha) \theta_{\text{current}}`$ | N/A | 脚注の 63) です。本書ではスカラーの積には $`\times`$ を使いません。 |
