@@ -11,6 +11,7 @@
 | 36 | I, ␣love, ␣reproduc, ibility | I, ␣Love, ␣Reprodu, cibility | N/A | 筆者が手元で試しているトークナイザーの分割はこの結果を返します。 |
 | 52 | 前に空白のあるなしにかかわらず | 前に空白のあるなしに関わらず | N/A | 関係なくの意味なのでそれに合わせた修正です。 |
 | 56 | データがMarkov過程に基づいているにも関わらず | データがMarkov過程に基づいているにもかかわらず | N/A | 逆説の意味なので関わらずだと不適切なので修正です。 |
+| 101 | ブルームフィルター | Bloomフィルター | N/A | 本書では人物名は英語表記しています。[@phys_yoshiki](https://x.com/phys_yoshiki) さんありがとうございます。 |
 | 160 | フーリエ変換 | Fourier変換 | N/A | 本書では人物名は英語表記しています。[@phys_yoshiki](https://x.com/phys_yoshiki) さんありがとうございます。 |
 | 165 | 例えば https://www.youtube.com/watch?v=cHRdyed4-yc 参照するとよい。 | 例えば https://www.youtube.com/watch?v=cHRdyed4-yc を参照するとよい。 | N/A | 脚注の 42) です。 |
 | 170 | $`\mathcal{N}\!\Bigl(x;\,\mu_{\theta,i} \bigl(x_1,1\bigr),\,\sigma_1^{2}\Bigr)\,dx`$ | $`\mathcal{N}\!\Bigl(x;\,\mu_{\theta,i} \bigl(\boldsymbol{x}_1,1\bigr),\,\sigma_1^{2}\Bigr)\,dx`$ | 第2刷 | GitHub の表示の問題でうまく表示できないですが、正しくは $`\boldsymbol{x}_1`$ は太字です。 |
