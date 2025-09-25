@@ -1,6 +1,16 @@
 # 原論文から解き明かす生成AI 正誤表
 
 ページ数は紙書籍のものです。
+数が多いので、理解の妨げになる誤りとそれ以外の誤り（単純な typo や表記揺れなど）とを分けて書いています。
+
+## 理解の妨げになる誤り
+
+| ページ | 誤 | 正 | 修正対応 | コメント |
+| --- | --- | --- | --- | --- |
+| 83 | $`W_{1} \in \mathbb{R}^{d_{\text{model}} \times d_{\text{ff}}}, W_{2} \in \mathbb{R}^{d_{\text{ff}} \times d_{\text{model}}}`$ | $`W_{1} \in \mathbb{R}^{d_{\text{ff}} \times d_{\text{model}}}, W_{2} \in \mathbb{R}^{d_{\text{model}} \times d_{\text{ff}}}`$ | N/A | [@phys_yoshiki](https://x.com/phys_yoshiki) さんありがとうございます。 |
+| 112 | $`\mathrm{Attend} (\{\boldsymbol{h}\}, S) = \left( a(\boldsymbol{h}_i, S_i) \right)_{i \in \{i, \dots, n\}}`$ | $`\mathrm{Attend} (\{\boldsymbol{h}\}, S) = \left( a(\boldsymbol{h}_i, S_i) \right)_{i \in \{1, \dots, n\}}`$ | N/A | [@phys_yoshiki](https://x.com/phys_yoshiki) さんありがとうございます。 |
+
+## それ以外の誤り
 
 | ページ | 誤 | 正 | 修正対応 | コメント |
 | --- | --- | --- | --- | --- |
@@ -11,7 +21,15 @@
 | 36 | I, ␣love, ␣reproduc, ibility | I, ␣Love, ␣Reprodu, cibility | N/A | 筆者が手元で試しているトークナイザーの分割はこの結果を返します。 |
 | 52 | 前に空白のあるなしにかかわらず | 前に空白のあるなしに関わらず | N/A | 関係なくの意味なのでそれに合わせた修正です。 |
 | 56 | データがMarkov過程に基づいているにも関わらず | データがMarkov過程に基づいているにもかかわらず | N/A | 逆説の意味なので関わらずだと不適切なので修正です。 |
+| 58 | ユニグラム言語モデル$`Q \in \mathcal{Q}_{\mathrm{1-gram}}`$ | ユニグラム言語モデル$`Q \in \mathcal{Q}_{\text{1-gram}}`$ | N/A | 本書では `\mathcal{Q}_{\text{1-gram}}` で統一しています。[@phys_yoshiki](https://x.com/phys_yoshiki) さんありがとうございます。 |
+| 68 | 線型結合 | 線形結合 | N/A | 本書では結合で統一しています。他にも表記揺れしているところがありますが線形で読み替えてください。[@phys_yoshiki](https://x.com/phys_yoshiki) さんありがとうございます。 |
+| 72 | レーベンシュタイン距離 | Levenshtein 距離 | N/A | 図3.6中の表記で、本書では人物名は英語表記しています。[@phys_yoshiki](https://x.com/phys_yoshiki) さんありがとうございます。 |
+| 72 | query は | クエリーは | N/A | 図3.6のキャプションで、本書ではクエリーとカタカナで統一しています。[@phys_yoshiki](https://x.com/phys_yoshiki) さんありがとうございます。 |
+| 73 | $`(i = 1, \dots n)`$ | $`(i = 1, \dots, n)`$ | N/A | 式(3.10)の上で、カンマ漏れです。[@phys_yoshiki](https://x.com/phys_yoshiki) さんありがとうございます。 |
+| 76 | $`\mathrm{Concatenate} (\mathrm{head}_1, \cdots, \mathrm{head}_H) W^{{\mathrm{out}}}`$ | $`\mathrm{Concatenate} (\mathrm{head}_1, \dots, \mathrm{head}_H) W^{{\mathrm{out}}}`$ | N/A | 本書では `\dots` に統一しています。他にも表記揺れしているところがありますが `\dots` で読み替えてください。[@phys_yoshiki](https://x.com/phys_yoshiki) さんありがとうございます。 |
+| 76 | $`(i = 1, \dots H)`$ | $`(i = 1, \dots, H)`$ | N/A | 式(3.14)の下で、カンマ漏れです。[@phys_yoshiki](https://x.com/phys_yoshiki) さんありがとうございます。 |
 | 101 | ブルームフィルター | Bloomフィルター | N/A | 本書では人物名は英語表記しています。[@phys_yoshiki](https://x.com/phys_yoshiki) さんありがとうございます。 |
+| 111 | i番目のトークンが前層のどのトークンと接続するかのインデックス | $`i`$番目のトークンが前層のどのトークンと接続するかのインデックス | N/A | `i` の表記は数式中なのでイタリック体です。[@phys_yoshiki](https://x.com/phys_yoshiki) さんありがとうございます。 |
 | 160 | フーリエ変換 | Fourier変換 | N/A | 本書では人物名は英語表記しています。[@phys_yoshiki](https://x.com/phys_yoshiki) さんありがとうございます。 |
 | 165 | 例えば https://www.youtube.com/watch?v=cHRdyed4-yc 参照するとよい。 | 例えば https://www.youtube.com/watch?v=cHRdyed4-yc を参照するとよい。 | N/A | 脚注の 42) です。 |
 | 170 | $`\mathcal{N}\!\Bigl(x;\,\mu_{\theta,i} \bigl(x_1,1\bigr),\,\sigma_1^{2}\Bigr)\,dx`$ | $`\mathcal{N}\!\Bigl(x;\,\mu_{\theta,i} \bigl(\boldsymbol{x}_1,1\bigr),\,\sigma_1^{2}\Bigr)\,dx`$ | 第2刷 | GitHub の表示の問題でうまく表示できないですが、正しくは $`\boldsymbol{x}_1`$ は太字です。 |
