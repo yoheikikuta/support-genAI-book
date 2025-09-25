@@ -7,6 +7,7 @@
 
 | ページ | 誤 | 正 | 修正対応 | コメント |
 | --- | --- | --- | --- | --- |
+| 76 | 数式で書けば以下のようになる。 | 数式で書けば以下のようになる（同じ特徴量から作っているので $`Q,K,V \in \mathbb{R}^{n \times d_{\text{model}}}`$ となることに注意）。 | N/A | これは厳密には誤りではないですが、前節と記号が同じで違うものを扱っていて混乱をきたすものです。[@phys_yoshiki](https://x.com/phys_yoshiki) さんありがとうございます。 |
 | 83 | $`W_{1} \in \mathbb{R}^{d_{\text{model}} \times d_{\text{ff}}}, W_{2} \in \mathbb{R}^{d_{\text{ff}} \times d_{\text{model}}}`$ | $`W_{1} \in \mathbb{R}^{d_{\text{ff}} \times d_{\text{model}}}, W_{2} \in \mathbb{R}^{d_{\text{model}} \times d_{\text{ff}}}`$ | N/A | [@phys_yoshiki](https://x.com/phys_yoshiki) さんありがとうございます。 |
 | 112 | $`\mathrm{Attend} (\{\boldsymbol{h}\}, S) = \left( a(\boldsymbol{h}_i, S_i) \right)_{i \in \{i, \dots, n\}}`$ | $`\mathrm{Attend} (\{\boldsymbol{h}\}, S) = \left( a(\boldsymbol{h}_i, S_i) \right)_{i \in \{1, \dots, n\}}`$ | N/A | [@phys_yoshiki](https://x.com/phys_yoshiki) さんありがとうございます。 |
 
