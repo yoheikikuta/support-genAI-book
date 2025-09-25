@@ -17,6 +17,7 @@
 | --- | --- | --- | --- | --- |
 | 16 | それゆえに論文という体で出されているにも関わらず | それゆえに論文という体で出されているにもかかわらず | N/A | 逆説の意味なので関わらずだと不適切なので修正です。[@phys_yoshiki](https://x.com/phys_yoshiki) さんありがとうございます。 |
 | 16 | https://arxiv.org/abs/1803.11175/v2 | https://arxiv.org/abs/1803.11175v2 | N/A | バージョン番号は `/` なしで付与する必要があります。[@phys_yoshiki](https://x.com/phys_yoshiki) さんありがとうございます。 |
+| 26 | フーリエ変換 | Fourier変換 | N/A | 図2.1中の表記で、本書では人物名は英語表記しています。[@phys_yoshiki](https://x.com/phys_yoshiki) さんありがとうございます。 |
 | 36 | I love reproducibility | I Love Reproducibility（これに合わせて表 2.3 の love と reproducibility の頭文字の l,r は全て大文字になります） | N/A | 筆者が手元で試しているトークナイザーでは頭文字を大文字にしないとサブワードの例が再現されないためです。 |
 | 36 | b'\x49', b'\x20', b'\x6c', ... | b'\x49', b'\x20', b'\x4c', ... | N/A | 1 つ上の修正に合わせた修正になります。 |
 | 36 | I, ␣love, ␣reproduc, ibility | I, ␣Love, ␣Reprodu, cibility | N/A | 筆者が手元で試しているトークナイザーの分割はこの結果を返します。 |
@@ -33,7 +34,8 @@
 | 111 | i番目のトークンが前層のどのトークンと接続するかのインデックス | $`i`$番目のトークンが前層のどのトークンと接続するかのインデックス | N/A | `i` の表記は数式中なのでイタリック体です。[@phys_yoshiki](https://x.com/phys_yoshiki) さんありがとうございます。 |
 | 160 | フーリエ変換 | Fourier変換 | N/A | 本書では人物名は英語表記しています。[@phys_yoshiki](https://x.com/phys_yoshiki) さんありがとうございます。 |
 | 165 | 例えば https://www.youtube.com/watch?v=cHRdyed4-yc 参照するとよい。 | 例えば https://www.youtube.com/watch?v=cHRdyed4-yc を参照するとよい。 | N/A | 脚注の 42) です。 |
-| 170 | $`\mathcal{N}\!\Bigl(x;\,\mu_{\theta,i} \bigl(x_1,1\bigr),\,\sigma_1^{2}\Bigr)\,dx`$ | $`\mathcal{N}\!\Bigl(x;\,\mu_{\theta,i} \bigl(\boldsymbol{x}_1,1\bigr),\,\sigma_1^{2}\Bigr)\,dx`$ | 第2刷 | GitHub の表示の問題でうまく表示できないですが、正しくは $`\boldsymbol{x}_1`$ は太字です。 |
+| 166 | $`\mathcal{N}\!\Bigl(x;\,\mu_{\theta,i} \bigl(x_1,1\bigr),\,\sigma_1^{2}\Bigr)\,dx`$ | $`\mathcal{N}\!\Bigl(x;\,\mu_{\theta,i} \bigl(\boldsymbol{x}_1,1\bigr),\,\sigma_1^{2}\Bigr)\,dx`$ | 第2刷 | GitHub の表示の問題でうまく表示できないですが、正しくは $`\boldsymbol{x}_1`$ は太字です。 |
+| 167 | $`t`$ は 1 から T までの | $`t`$ は $`1`$ から $`T`$ までの | 第2刷 | `T` の表記は数式なのでイタリック体です。[@phys_yoshiki](https://x.com/phys_yoshiki) さんありがとうございます。 |
 | 179 | $`\theta_{\text{EMA}} = \alpha \times \theta_{\text{EMA}} + (1 - \alpha) \times \theta_{\text{current}}`$ | $`\theta_{\text{EMA}} = \alpha \theta_{\text{EMA}} + (1 - \alpha) \theta_{\text{current}}`$ | N/A | 脚注の 63) です。本書ではスカラーの積には $`\times`$ を使いません。 |
 | 180 | https://arxiv.org/abs/2302.09057 | https://arxiv.org/abs/2302.09057v1 | N/A | バージョン番号の付け忘れです。 |
 | 200 | リンゴの予測確率がほぼ0%だったにも関わらず | リンゴの予測確率がほぼ0%だったにもかかわらず | N/A | 逆説の意味なので関わらずだと不適切なので修正です。 |
