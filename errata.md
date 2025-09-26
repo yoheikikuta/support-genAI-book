@@ -24,7 +24,7 @@
 | 52 | 前に空白のあるなしにかかわらず | 前に空白のあるなしに関わらず | N/A | 関係なくの意味なのでそれに合わせた修正です。 |
 | 56 | データがMarkov過程に基づいているにも関わらず | データがMarkov過程に基づいているにもかかわらず | N/A | 逆説の意味なので関わらずだと不適切なので修正です。 |
 | 58 | ユニグラム言語モデル$`Q \in \mathcal{Q}_{\mathrm{1-gram}}`$ | ユニグラム言語モデル$`Q \in \mathcal{Q}_{\text{1-gram}}`$ | N/A | 本書では `\mathcal{Q}_{\text{1-gram}}` で統一しています。[@phys_yoshiki](https://x.com/phys_yoshiki) さんありがとうございます。 |
-| 68 | 線型結合 | 線形結合 | N/A | 本書では結合で統一しています。他にも表記揺れしているところがありますが線形で読み替えてください。[@phys_yoshiki](https://x.com/phys_yoshiki) さんありがとうございます。 |
+| 68 | 線型結合 | 線形結合 | N/A | 本書では線形で統一しています。他にも表記揺れしているところがありますが線形で読み替えてください。[@phys_yoshiki](https://x.com/phys_yoshiki) さんありがとうございます。 |
 | 72 | レーベンシュタイン距離 | Levenshtein 距離 | N/A | 図3.6中の表記で、本書では人物名は英語表記しています。[@phys_yoshiki](https://x.com/phys_yoshiki) さんありがとうございます。 |
 | 72 | query は | クエリーは | N/A | 図3.6のキャプションで、本書ではクエリーとカタカナで統一しています。[@phys_yoshiki](https://x.com/phys_yoshiki) さんありがとうございます。 |
 | 73 | $`(i = 1, \dots n)`$ | $`(i = 1, \dots, n)`$ | N/A | 式(3.10)の上で、カンマ漏れです。[@phys_yoshiki](https://x.com/phys_yoshiki) さんありがとうございます。 |
