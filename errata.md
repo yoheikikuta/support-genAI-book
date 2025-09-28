@@ -32,6 +32,7 @@
 | 76 | $`(i = 1, \dots H)`$ | $`(i = 1, \dots, H)`$ | N/A | 式(3.14)の下で、カンマ漏れです。[@phys_yoshiki](https://x.com/phys_yoshiki) さんありがとうございます。 |
 | 101 | ブルームフィルター | Bloomフィルター | N/A | 本書では人物名は英語表記しています。[@phys_yoshiki](https://x.com/phys_yoshiki) さんありがとうございます。 |
 | 111 | i番目のトークンが前層のどのトークンと接続するかのインデックス | $`i`$番目のトークンが前層のどのトークンと接続するかのインデックス | N/A | `i` の表記は数式中なのでイタリック体です。[@phys_yoshiki](https://x.com/phys_yoshiki) さんありがとうございます。 |
+| 140 | N/A | これは最大化する対象であることに注意されたい。 | N/A | 式(4.20)の直後に追加です。これは厳密には誤りではないですが、最小化する損失関数と最大化する目的関数で同じ記号を使っていて混乱をきたすので注意書きを追加しました。[@himkt](https://x.com/himkt) さんありがとうございます。 |
 | 160 | フーリエ変換 | Fourier変換 | N/A | 本書では人物名は英語表記しています。[@phys_yoshiki](https://x.com/phys_yoshiki) さんありがとうございます。 |
 | 165 | 例えば https://www.youtube.com/watch?v=cHRdyed4-yc 参照するとよい。 | 例えば https://www.youtube.com/watch?v=cHRdyed4-yc を参照するとよい。 | N/A | 脚注の 42) です。 |
 | 166 | $`\mathcal{N}\!\Bigl(x;\,\mu_{\theta,i} \bigl(x_1,1\bigr),\,\sigma_1^{2}\Bigr)\,dx`$ | $`\mathcal{N}\!\Bigl(x;\,\mu_{\theta,i} \bigl(\boldsymbol{x}_1,1\bigr),\,\sigma_1^{2}\Bigr)\,dx`$ | 第2刷 | GitHub の表示の問題でうまく表示できないですが、正しくは $`\boldsymbol{x}_1`$ は太字です。 |
