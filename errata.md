@@ -46,4 +46,4 @@
 | 240 | https://arxiv.org/abs/2404.19737 | https://arxiv.org/abs/2404.19737v1 | 第3刷 | バージョン番号の付け忘れです。 |
 | 241 | $`\mathcal{L}_{k, \mathrm{MTP}}`$ | $`L_{k, \mathrm{MTP}}`$ | 第3刷 | GitHub の表示の問題でうまく表示できないですが、本書では損失に `\mathcal` を使いません。 |
 | 242 | $`\mathcal{L}_{\mathrm{MTP}} = \frac{\lambda}{D} \sum_{k=1}^{D} \mathcal{L}_{k, \mathrm{MTP}}`$ | $`L_{\mathrm{MTP}} = \frac{\lambda}{D} \sum_{k=1}^{D} L_{k, \mathrm{MTP}}`$ | 第3刷 | GitHub の表示の問題でうまく表示できないですが、本書では損失に `\mathcal` を使いません。 |
-| 276 | アインシュタイン方程式 | Einstein方程式 | N/A | 脚注29)の表記で、本書では人物名は英語表記しています。 |
+| 276 | アインシュタイン方程式 | Einstein方程式 | 第3刷 | 脚注29)の表記で、本書では人物名は英語表記しています。 |
