@@ -25,11 +25,14 @@
 | 56 | データがMarkov過程に基づいているにも関わらず | データがMarkov過程に基づいているにもかかわらず | 第3刷 | 逆説の意味なので関わらずだと不適切なので修正です。 |
 | 58 | ユニグラム言語モデル$`Q \in \mathcal{Q}_{\mathrm{1-gram}}`$ | ユニグラム言語モデル$`Q \in \mathcal{Q}_{\text{1-gram}}`$ | 第3刷 | 本書では `\mathcal{Q}_{\text{1-gram}}` で統一しています。[@phys_yoshiki](https://x.com/phys_yoshiki) さんありがとうございます。 |
 | 68 | 線型結合 | 線形結合 | 第3刷 | 本書では線形で統一しています。他にも表記揺れしているところがありますが線形で読み替えてください。[@phys_yoshiki](https://x.com/phys_yoshiki) さんありがとうございます。 |
+| 70 | 迷えば、破れる | 迷えば、敗れる | N/A | 図3.4中の表記が間違えているので修正です。 |
 | 72 | レーベンシュタイン距離 | Levenshtein 距離 | 第3刷 | 図3.6中の表記で、本書では人物名は英語表記しています。[@phys_yoshiki](https://x.com/phys_yoshiki) さんありがとうございます。 |
 | 72 | query は | クエリーは | 第3刷 | 図3.6のキャプションで、本書ではクエリーとカタカナで統一しています。[@phys_yoshiki](https://x.com/phys_yoshiki) さんありがとうございます。 |
 | 73 | $`(i = 1, \dots n)`$ | $`(i = 1, \dots, n)`$ | 第3刷 | 式(3.10)の上で、カンマ漏れです。[@phys_yoshiki](https://x.com/phys_yoshiki) さんありがとうございます。 |
+| 76 | 迷えば、破れる | 迷えば、敗れる | N/A | 図3.9中の表記が間違えているので修正です。 |
 | 76 | $`\mathrm{Concatenate} (\mathrm{head}_1, \cdots, \mathrm{head}_H) W^{{\mathrm{out}}}`$ | $`\mathrm{Concatenate} (\mathrm{head}_1, \dots, \mathrm{head}_H) W^{{\mathrm{out}}}`$ | 第3刷 | 本書では `\dots` に統一しています。他にも表記揺れしているところがありますが `\dots` で読み替えてください。[@phys_yoshiki](https://x.com/phys_yoshiki) さんありがとうございます。 |
 | 76 | $`(i = 1, \dots H)`$ | $`(i = 1, \dots, H)`$ | 第3刷 | 式(3.14)の下で、カンマ漏れです。[@phys_yoshiki](https://x.com/phys_yoshiki) さんありがとうございます。 |
+| 85 | 迷えば、破れる | 迷えば、敗れる | N/A | 図3.15中の表記が間違えているので修正です。 |
 | 101 | ブルームフィルター | Bloomフィルター | 第3刷 | 本書では人物名は英語表記しています。[@phys_yoshiki](https://x.com/phys_yoshiki) さんありがとうございます。 |
 | 111 | i番目のトークンが前層のどのトークンと接続するかのインデックス | $`i`$番目のトークンが前層のどのトークンと接続するかのインデックス | 第3刷 | `i` の表記は数式中なのでイタリック体です。[@phys_yoshiki](https://x.com/phys_yoshiki) さんありがとうございます。 |
 | 138 | 属性で対象者を選ぶのは法的に禁止されているので、 | 属性で対象者を選ぶのは法的に禁止されているので、For what (中略) 原論文では主張している。 | N/A | p.138 の最後で文章が切れて p.139 の最初が字下げされて段落になっているが、ここは文章が繋がっています。 |
