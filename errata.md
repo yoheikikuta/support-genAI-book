@@ -10,6 +10,38 @@
 | 76 | 実装上は複雑なことはなく、数式で書けば以下のようになる。 | 数式で書けば以下のようになる（同じ特徴量から作っているので $`Q,K,V \in \mathbb{R}^{n \times d_{\text{model}}}`$ となることに注意）。 | 第3刷 | これは厳密には誤りではないですが、前節と記号が同じで違うものを扱っていて混乱をきたすものです。[@phys_yoshiki](https://x.com/phys_yoshiki) さんありがとうございます。 |
 | 83 | $`W_{1} \in \mathbb{R}^{d_{\text{model}} \times d_{\text{ff}}}, W_{2} \in \mathbb{R}^{d_{\text{ff}} \times d_{\text{model}}}`$ | $`W_{1} \in \mathbb{R}^{d_{\text{ff}} \times d_{\text{model}}}, W_{2} \in \mathbb{R}^{d_{\text{model}} \times d_{\text{ff}}}`$ | 第3刷 | [@phys_yoshiki](https://x.com/phys_yoshiki) さんありがとうございます。 |
 | 112 | $`\mathrm{Attend} (\{\boldsymbol{h}\}, S) = \left( a(\boldsymbol{h}_i, S_i) \right)_{i \in \{i, \dots, n\}}`$ | $`\mathrm{Attend} (\{\boldsymbol{h}\}, S) = \left( a(\boldsymbol{h}_i, S_i) \right)_{i \in \{1, \dots, n\}}`$ | 第3刷 | [@phys_yoshiki](https://x.com/phys_yoshiki) さんありがとうございます。 |
+| 157 | ```math
+\begin{align}
+P_{\ell n}(r,t) &= \sum_m P_{\ell m}(r,t-dt) P_{m n}(t-dt,t)\\
+&= \sum_m \left( P_{\ell m}(r,t) - dt \frac{\partial P_{\ell m}(r,t)}{\partial t} + \mathcal{O}(dt^2)\right) P_{mn}(t-dt,t) \\
+&= P_{\ell m}(r,t) -dt \left( \frac{\partial P_{\ell m}(r,t)}{\partial t} + P_{\ell n}(r,t) p_n(t) - \sum_{m\ne n}P_{\ell m}(r,t) p_m(t) \Lambda_{mn}(t)\right) + \mathcal{O}(dt^2)
+\end{align}
+```
+ | ```math
+\begin{align}
+P_{\ell n}(r,t) &= \sum_m P_{\ell m}(r,t-dt) P_{m n}(t-dt,t)\\
+&= P_{\ell n}(r,t-dt) P_{n n}(t-dt,t) + \sum_{m\ne n} P_{\ell m}(r,t-dt) P_{m n}(t-dt,t)\\
+&= P_{\ell n}(r,t-dt) \left[1-p_n(t-dt)dt\right] + \sum_{m\ne n} P_{\ell m}(r,t-dt) p_m(t-dt)\Lambda_{mn}(t-dt)dt + \mathcal{O}(dt^2)\\
+&= P_{\ell n}(r,t-dt) -dt \left( p_n(t-dt) P_{\ell n}(r,t-dt) - \sum_{m\ne n} P_{\ell m}(r,t-dt) p_m(t-dt)\Lambda_{mn}(t-dt)\right) + \mathcal{O}(dt^2)\\
+\end{align}
+``` | --- | --- |
+| 158 | ```math
+\begin{align}
+P_{\ell n}(r,t) &= \sum_m P_{\ell m}(r,r+dr) P_{m n}(r+dr,t)\\
+&= \left(1-p_\ell(r)dr +\mathcal{O}(dr^2)\right)
+\left( P_{\ell n}(r,t) + \frac{\partial P_{\ell n}(r,t)}{\partial r}dr \right)
++ \sum_{m\ne n} p_\ell(r)\Lambda_{\ell m} dr P_{mn}(r,t) + \mathcal{O}(dr^2)
+ \\
+&= P_{\ell n}(r,t) + dr \left( \frac{\partial P_{\ell n}(r,t)}{\partial r} - p_\ell(r) P_{\ell n}(r,t) + p_\ell(r) \sum_{m\ne n}\Lambda_{\ell m} P_{mn}(r,t)\right) + \mathcal{O}(dr^2)
+\end{align}
+``` | ```math
+\begin{align}
+P_{\ell n}(r,t) &= \sum_m P_{\ell m}(r,r+dr) P_{m n}(r+dr,t)\\
+&= P_{\ell \ell}(r,r+dr) P_{\ell n}(r+dr,t) + \sum_{m\ne\ell} P_{\ell m}(r,r+dr) P_{m n}(r+dr,t)\\
+&= [1-p_\ell(r)dr] P_{\ell n}(r+dr,t) + \sum_{m\ne\ell} p_\ell(r)\Lambda_{\ell m}(r) dr P_{m n}(r+dr,t) + \mathcal{O}(dr^2)\\
+&= P_{\ell n}(r+dr,t) - dr \left( p_\ell(r) P_{\ell n}(r+dr,t) - \sum_{m\ne\ell} p_\ell(r)\Lambda_{\ell m}(r) P_{m n}(r+dr,t) \right) + \mathcal{O}(dr^2)\\
+\end{align}
+``` | --- | --- |
 
 ## それ以外の誤り
 
