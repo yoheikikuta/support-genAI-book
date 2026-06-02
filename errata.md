@@ -10,6 +10,7 @@
 | 76 | 実装上は複雑なことはなく、数式で書けば以下のようになる。 | 数式で書けば以下のようになる（同じ特徴量から作っているので $`Q,K,V \in \mathbb{R}^{n \times d_{\text{model}}}`$ となることに注意）。 | 第3刷 | これは厳密には誤りではないですが、前節と記号が同じで違うものを扱っていて混乱をきたすものです。[@phys_yoshiki](https://x.com/phys_yoshiki) さんありがとうございます。 |
 | 83 | $`W_{1} \in \mathbb{R}^{d_{\text{model}} \times d_{\text{ff}}}, W_{2} \in \mathbb{R}^{d_{\text{ff}} \times d_{\text{model}}}`$ | $`W_{1} \in \mathbb{R}^{d_{\text{ff}} \times d_{\text{model}}}, W_{2} \in \mathbb{R}^{d_{\text{model}} \times d_{\text{ff}}}`$ | 第3刷 | [@phys_yoshiki](https://x.com/phys_yoshiki) さんありがとうございます。 |
 | 112 | $`\mathrm{Attend} (\{\boldsymbol{h}\}, S) = \left( a(\boldsymbol{h}_i, S_i) \right)_{i \in \{i, \dots, n\}}`$ | $`\mathrm{Attend} (\{\boldsymbol{h}\}, S) = \left( a(\boldsymbol{h}_i, S_i) \right)_{i \in \{1, \dots, n\}}`$ | 第3刷 | [@phys_yoshiki](https://x.com/phys_yoshiki) さんありがとうございます。 |
+| 158 | $`\begin{aligned} \lim_{dt \to 0} \frac{1}{dt} \int_{-\infty}^{\infty} dy ~ u(t,y;t+dt,z)(z-y) &= b(t,z) && \text{(5.9)} \\ \lim_{dt \to 0} \frac{1}{dt} \int_{-\infty}^{\infty} dy ~ u(t,y;t+dt,z)(z-y)^2 &= a(t,z) && \text{(5.10)} \end{aligned}`$ | $`\begin{aligned} \lim_{dt \to 0} \frac{1}{dt} \int_{-\infty}^{\infty} dy ~ u(t,z;t+dt,y)(y-z) &= b(t,z) && \text{(5.9)} \\ \lim_{dt \to 0} \frac{1}{dt} \int_{-\infty}^{\infty} dy ~ u(t,z;t+dt,y)(y-z)^2 &= a(t,z) && \text{(5.10)} \end{aligned}`$ | N/A | @mtanakakumw さんありがとうございます。 |
 
 ## それ以外の誤り
 
@@ -38,9 +39,6 @@
 | 133 | $`(\Delta W_{\mathrm{FT}})`$ をこのように定義) | $`(\Delta W_{\mathrm{FT}}`$ をこのように定義) | N/A | 不要な括弧閉じです。 |
 | 138 | 属性で対象者を選ぶのは法的に禁止されているので、 | 属性で対象者を選ぶのは法的に禁止されているので、For what (中略) 原論文では主張している。 | N/A | p.138 の最後で文章が切れて p.139 の最初が字下げされて段落になっていますが、ここは文章が繋がっています。 |
 | 140 | N/A | これは最大化する対象であることに注意されたい。 | 第3刷 | 式(4.20)の直後に追加です。これは厳密には誤りではないですが、最小化する損失関数と最大化する目的関数で同じ記号を使っていて混乱をきたすので注意書きを追加しました。[@himkt](https://x.com/himkt) さんありがとうございます。 |
-| 158 | $$ \lim_{dt \to 0} \frac{1}{dt} \int_{-\infty}^{\infty} dy ~ u(t,y;t+dt,z)(z-y) = b(t,z) \tag{5.9}$$
-$$ \lim_{dt \to 0} \frac{1}{dt} \int_{-\infty}^{\infty} dy ~ u(t,y;t+dt,z)(z-y)^2 = a(t,z) \tag{5.10}$$ | $$ \lim_{dt \to 0} \frac{1}{dt} \int_{-\infty}^{\infty} dy ~ u(t,z;t+dt,y)(y-z) = b(t,z) \tag{5.9}$$
-$$ \lim_{dt \to 0} \frac{1}{dt} \int_{-\infty}^{\infty} dy ~u(t,z;t+dt,y)(y-z)^2 = a(t,z) \tag{5.10}$$ | --- | --- |
 | 160 | フーリエ変換 | Fourier変換 | 第3刷 | 本書では人物名は英語表記しています。[@phys_yoshiki](https://x.com/phys_yoshiki) さんありがとうございます。 |
 | 165 | 例えば https://www.youtube.com/watch?v=cHRdyed4-yc 参照するとよい。 | 例えば https://www.youtube.com/watch?v=cHRdyed4-yc を参照するとよい。 | 第3刷 | 脚注の 42) です。 |
 | 166 | $`\mathcal{N}\!\Bigl(x;\,\mu_{\theta,i} \bigl(x_1,1\bigr),\,\sigma_1^{2}\Bigr)\,dx`$ | $`\mathcal{N}\!\Bigl(x;\,\mu_{\theta,i} \bigl(\boldsymbol{x}_1,1\bigr),\,\sigma_1^{2}\Bigr)\,dx`$ | 第2刷 | GitHub の表示の問題でうまく表示できないですが、正しくは $`\boldsymbol{x}_1`$ は太字です。 |
