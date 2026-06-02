@@ -10,6 +10,8 @@
 | 76 | 実装上は複雑なことはなく、数式で書けば以下のようになる。 | 数式で書けば以下のようになる（同じ特徴量から作っているので $`Q,K,V \in \mathbb{R}^{n \times d_{\text{model}}}`$ となることに注意）。 | 第3刷 | これは厳密には誤りではないですが、前節と記号が同じで違うものを扱っていて混乱をきたすものです。[@phys_yoshiki](https://x.com/phys_yoshiki) さんありがとうございます。 |
 | 83 | $`W_{1} \in \mathbb{R}^{d_{\text{model}} \times d_{\text{ff}}}, W_{2} \in \mathbb{R}^{d_{\text{ff}} \times d_{\text{model}}}`$ | $`W_{1} \in \mathbb{R}^{d_{\text{ff}} \times d_{\text{model}}}, W_{2} \in \mathbb{R}^{d_{\text{model}} \times d_{\text{ff}}}`$ | 第3刷 | [@phys_yoshiki](https://x.com/phys_yoshiki) さんありがとうございます。 |
 | 112 | $`\mathrm{Attend} (\{\boldsymbol{h}\}, S) = \left( a(\boldsymbol{h}_i, S_i) \right)_{i \in \{i, \dots, n\}}`$ | $`\mathrm{Attend} (\{\boldsymbol{h}\}, S) = \left( a(\boldsymbol{h}_i, S_i) \right)_{i \in \{1, \dots, n\}}`$ | 第3刷 | [@phys_yoshiki](https://x.com/phys_yoshiki) さんありがとうございます。 |
+| 158 | $`\begin{aligned} \lim_{dt \to 0} \frac{1}{dt} \int_{-\infty}^{\infty} dy ~ u(t,y;t+dt,z)(z-y) &= b(t,z) && \text{(5.9)} \\ \lim_{dt \to 0} \frac{1}{dt} \int_{-\infty}^{\infty} dy ~ u(t,y;t+dt,z)(z-y)^2 &= a(t,z) && \text{(5.10)} \end{aligned}`$ | $`\begin{aligned} \lim_{dt \to 0} \frac{1}{dt} \int_{-\infty}^{\infty} dy ~ u(t,z;t+dt,y)(y-z) &= b(t,z) && \text{(5.9)} \\ \lim_{dt \to 0} \frac{1}{dt} \int_{-\infty}^{\infty} dy ~ u(t,z;t+dt,y)(y-z)^2 &= a(t,z) && \text{(5.10)} \end{aligned}`$ | N/A | @mtanakakumw さんありがとうございます。 |
+
 ## それ以外の誤り
 
 | ページ | 誤 | 正 | 修正対応 | コメント |
